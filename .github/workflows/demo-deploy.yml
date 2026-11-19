@@ -1,0 +1,31 @@
+# Precisamos iniciar um trigger
+on:
+	# Este pipeline só sera executado quando outro pipeline chamar
+	workflow_call:
+		# Quais variaveis sera necessario
+		inputs:
+			# Nome da variavel
+			variavel-demo:
+				# Se essa variavel é obrigatoria
+				required: true
+				# O Tipo dessa variavel
+				type: string
+
+# Serviços que vai executar
+jobs:
+	# Nome
+	deploy:
+		# Qual runner vai executar
+		runs-on: ubuntu-latest
+
+		# Passos que vai executar
+		steps:
+			- uses: actions/checkout@v4
+
+			- name: Run a one-line script
+			run: echo Hello, world! ${{ inputs.variavel-demo }}
+
+			- name: Run a multi-line script
+			run: |
+				echo Add other actions to build,
+				echo test, and deploy your project.
